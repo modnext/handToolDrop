@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="113">
+  <author>aaw3k</author>
+  <version>1.0.0.0</version>
+
+  <title>
+    <en>Hand Tool Drop</en>
+    <de>Handwerkzeuge Ablegen</de>
+    <fr>Déposer Les Outils À Main</fr>
+    <pl>Upuszczanie Narzędzi Ręcznych</pl>
+    <ru>Откладывание Ручных Инструментов</ru>
+  </title>
+
+  <description>
+    <en><![CDATA[
+Allows you to put down selected hand tools and pick them up again later.
+
+Features:
+- Carry dropped tools by hand or secure them with tension belts for transport.
+- Enable interactive zone markers to find nearby dropped tools.
+- Tools keep their ownership and position in the savegame.
+- Supports dropping only compatible hand tools, including those from mods and DLCs.
+
+Hotkeys:
+- Press Q to drop the held tool or equip a nearby dropped tool you are looking at.
+
+For more information or to report a bug, please visit GitHub (modnext/handToolDrop).
+]]></en>
+    <de><![CDATA[
+Ermöglicht es, ausgewählte Handwerkzeuge auf dem Boden abzulegen und später wieder aufzunehmen.
+
+Funktionen:
+- Trage abgelegte Werkzeuge in den Händen oder sichere sie für den Transport mit Spanngurten.
+- Aktiviere die Interaktionszonenmarkierungen, um abgelegte Werkzeuge in deiner Nähe leichter zu finden.
+- Werkzeuge behalten ihren Besitzer und ihre Position im Spielstand.
+- Unterstützt das Ablegen ausschließlich kompatibler Handwerkzeuge, auch aus Mods und DLCs.
+
+Tastenkombinationen:
+- Drücke Q, um das gehaltene Werkzeug abzulegen oder ein abgelegtes Werkzeug in deiner Nähe auszurüsten, auf das du blickst.
+
+Für weitere Informationen oder um einen Fehler zu melden, besuche GitHub (modnext/handToolDrop).
+]]></de>
+    <fr><![CDATA[
+Permet de déposer au sol certains outils à main, puis de les reprendre plus tard.
+
+Fonctionnalités :
+- Portez les outils à la main ou fixez-les avec des sangles pour le transport.
+- Activez les marqueurs de zone interactifs pour repérer les outils déposés à proximité.
+- Les outils conservent leur propriétaire et leur position dans la sauvegarde.
+- Permet de déposer uniquement les outils à main compatibles, y compris ceux des mods et des DLC.
+
+Raccourcis clavier :
+- Appuyez sur Q pour déposer l'outil que vous tenez ou vous équiper d'un outil posé à proximité que vous regardez.
+
+Pour plus d'informations ou pour signaler un bug, rendez-vous sur GitHub (modnext/handToolDrop).
+]]></fr>
+    <pl><![CDATA[
+Pozwala odkładać wybrane narzędzia ręczne na ziemię i ponownie je podnosić.
+
+Funkcje:
+- Przenoś narzędzia w dłoniach lub zabezpieczaj je pasami na czas transportu.
+- Włącz znaczniki stref interakcji, aby łatwiej odnaleźć pobliskie narzędzia.
+- Narzędzia zachowują właściciela i pozycję w zapisie gry.
+- Obsługuje upuszczanie wyłącznie kompatybilnych narzędzi ręcznych, również z modów i DLC.
+
+Skróty klawiszowe:
+- Naciśnij Q, aby upuścić trzymane narzędzie lub wziąć do ekwipunku pobliskie narzędzie, na które patrzysz.
+
+Aby uzyskać więcej informacji lub zgłosić błąd, odwiedź GitHub (modnext/handToolDrop).
+]]></pl>
+    <ru><![CDATA[
+Позволяет класть отдельные ручные инструменты на землю и снова поднимать их.
+
+Возможности:
+- Переносите инструменты в руках или закрепляйте их ремнями для транспортировки.
+- Включите метки интерактивных зон, чтобы легче находить инструменты поблизости.
+- Инструменты сохраняют владельца и положение в сохранённой игре.
+- Поддерживает размещение на земле только совместимых ручных инструментов, включая инструменты из модов и DLC.
+
+Клавиши:
+- Нажмите Q, чтобы положить удерживаемый инструмент на землю или взять в руки лежащий рядом инструмент, на который вы смотрите.
+
+Для получения дополнительной информации или сообщения об ошибке посетите GitHub (modnext/handToolDrop).
+]]></ru>
+  </description>
+
+  <l10n>
+    <text name="input_HANDTOOL_DROP_PICKUP">
+      <en>Pick Up / Drop</en>
+      <br>Recolher / Largar</br>
+      <cs>拾取 / 放下</cs>
+      <ct>撿起 / 放下</ct>
+      <cz>Zvednout / Upustit</cz>
+      <da>Saml op / Smid</da>
+      <de>Aufheben / Fallen lassen</de>
+      <ea>Recoger / Soltar</ea>
+      <es>Recoger / Soltar</es>
+      <fc>Ramasser / Déposer</fc>
+      <fi>Nosta / Pudota</fi>
+      <fr>Ramasser / Lâcher</fr>
+      <hu>Felvétel / Eldobás</hu>
+      <id>Ambil / Jatuhkan</id>
+      <it>Raccogli / Posa</it>
+      <jp>拾う / 放す</jp>
+      <kr>줍기 / 내려놓기</kr>
+      <nl>Oppakken / Laten vallen</nl>
+      <no>Plukk opp / Slipp</no>
+      <pl>Podnieś / Upuść</pl>
+      <pt>Apanhar / Largar</pt>
+      <ro>Ridică / Lasă jos</ro>
+      <ru>Поднять / Бросить</ru>
+      <sv>Ta upp / Släpp</sv>
+      <tr>Al / Bırak</tr>
+      <uk>Взяти / Опустити</uk>
+      <vi>Nhặt / Thả</vi>
+    </text>
+  </l10n>
+
+  <iconFilename>icon_handToolDrop.png</iconFilename>
+  <multiplayer supported="true" />
+
+  <extraSourceFiles>
+    <sourceFile filename="scripts/HandToolDropSystem.lua" />
+  </extraSourceFiles>
+
+  <handToolSpecializations>
+    <specialization name="handToolDrop" className="HandToolDrop" filename="scripts/handTools/HandToolDrop.lua" />
+  </handToolSpecializations>
+
+  <actions>
+    <action name="HANDTOOL_DROP_PICKUP" axisType="HALF" displayCategory="PLAYER_INTERACTIVE" />
+  </actions>
+
+  <inputBinding>
+    <actionBinding action="HANDTOOL_DROP_PICKUP">
+      <binding device="KB_MOUSE_DEFAULT" input="KEY_q" />
+    </actionBinding>
+  </inputBinding>
+</modDesc>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<handToolDrop>
+  <handTool filename="data/handTools/brandless/horseBrush/horseBrush.xml" mass="2">
+    <collision name="body" size="0.841 0.304 1.505" translation="0.000 -0.028 0.000" />
+  </handTool>
+  <handTool filename="data/handTools/husqvarna/xp550/xp550.xml">
+    <collision name="body" size="1.485 1.900 3.208" translation="0.073 0.065 -0.208" />
+    <collision name="bar" size="0.092 0.631 2.549" translation="0.000 0.000 0.168" />
+  </handTool>
+  <handTool filename="data/handTools/jonsered/cs2252/cs2252.xml">
+    <collision name="body" size="1.657 1.987 3.211" translation="0.082 0.072 -0.213" />
+    <collision name="bar" size="0.092 0.622 2.473" translation="-0.002 0.002 0.164" />
+  </handTool>
+  <handTool filename="data/handTools/mcCulloch/cs410/cs410.xml">
+    <collision name="body" size="1.524 2.052 3.022" translation="0.071 0.079 -0.205" />
+    <collision name="bar" size="0.092 0.613 2.490" translation="0.000 0.001 0.162" />
+  </handTool>
+  <handTool filename="data/handTools/stihl/ms261/ms261.xml">
+    <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
+    <collision name="bar" size="0.092 0.754 2.806" translation="-0.001 0.012 0.194" rotation="-2.964 -0.000 -0.000" />
+  </handTool>
+
+  <handTool filename="data/handTools/stihl/sprayCan/sprayCanBlue.xml">
+    <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
+  </handTool>
+  <handTool filename="data/handTools/stihl/sprayCan/sprayCanGreen.xml">
+    <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
+  </handTool>
+  <handTool filename="data/handTools/stihl/sprayCan/sprayCanOrange.xml">
+    <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
+  </handTool>
+  <handTool filename="data/handTools/stihl/sprayCan/sprayCanRed.xml">
+    <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
+  </handTool>
+  <handTool filename="data/handTools/stihl/sprayCan/sprayCanPink.xml">
+    <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
+  </handTool>
+  <handTool filename="data/handTools/stihl/sprayCan/sprayCanWhite.xml">
+    <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
+  </handTool>
+  <handTool filename="data/handTools/stihl/sprayCan/sprayCanYellow.xml">
+    <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
+  </handTool>
+
+  <handTool filename="$pdlcdir$highlandsFishingPack/handTools/fishingRod/fishingRod.xml" mass="2" resetPose="true" resetPoseMode="animation">
+    <collision name="body" size="10.409 0.200 0.200" translation="0.011 0.000 0.000" />
+    <collision name="bobber" size="1.387 0.804 0.804" translation="0.017 -0.132 0.000" />
+    <node path="0|3" hide="true" />
+  </handTool>
+  <handTool filename="$pdlcdir$pumpsAndHosesPack/data/handTools/hoseWrench/hoseWrench.xml" mass="2">
+    <collision name="bodyTop" size="0.050 0.300 1.015" translation="-0.006 0.068 0.488" rotation="-36.091 -0.000 -0.000" />
+    <collision name="bodyBottom" size="0.050 0.200 3.781" translation="-0.006 -0.001 0.190" />
+  </handTool>
+
+  <handTool filename="$moddir$FS25_stihlMS661C/661C.xml">
+    <collision name="body" size="1.929 2.274 3.435" translation="0.075 0.085 -0.202" />
+    <collision name="bar" size="0.092 0.707 4.741" translation="-0.031 0.019 0.326" rotation="-2.247 -0.000 -0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_stihlMS661C/661CPorted.xml">
+    <collision name="body" size="1.929 2.274 3.435" translation="0.075 0.085 -0.202" />
+    <collision name="bar" size="0.092 0.707 4.741" translation="-0.031 0.019 0.326" rotation="-2.247 -0.000 -0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_ms261/ms261.xml">
+    <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
+    <collision name="bar" size="0.092 0.754 2.842" translation="-0.002 0.011 0.187" />
+  </handTool>
+  <handTool filename="$moddir$FS25_ms261/ms261TS.xml">
+    <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
+    <collision name="bar" size="0.092 0.754 2.871" translation="-0.001 0.011 0.188" />
+  </handTool>
+  <handTool filename="$moddir$FS25_AXE/siekiera.xml">
+    <collision name="body" size="0.201 0.868 3.121" translation="0.000 -0.008 0.029" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Forest_Machete/Forest_Machete.xml">
+    <collision name="body" size="0.313 0.519 8.349" translation="0.002 -0.015 0.133" />
+  </handTool>
+  <handTool filename="$moddir$FS25_dolpimaPSx90Pack/ps90.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 3.571" translation="0.000 -0.002 0.156" />
+  </handTool>
+  <handTool filename="$moddir$FS25_dolpimaPSx90Pack/ps190.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 4.341" translation="0.000 -0.002 0.206" />
+  </handTool>
+  <handTool filename="$moddir$FS25_dolpimaPSx90Pack/ps290.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 3.571" translation="0.000 -0.002 0.156" />
+  </handTool>
+  <handTool filename="$moddir$FS25_dolpimaPSx90Pack/ps390.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 4.341" translation="0.000 -0.002 0.206" />
+  </handTool>
+  <handTool filename="$moddir$FS25_dolpimaPSx90Pack/ps490.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 3.571" translation="0.000 -0.002 0.156" />
+  </handTool>
+  <handTool filename="$moddir$FS25_lizardPSx90Pack/ps90.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 3.571" translation="0.000 -0.002 0.156" />
+  </handTool>
+  <handTool filename="$moddir$FS25_lizardPSx90Pack/ps190.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 4.341" translation="0.000 -0.002 0.206" />
+  </handTool>
+  <handTool filename="$moddir$FS25_lizardPSx90Pack/ps290.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 3.571" translation="0.000 -0.002 0.156" />
+  </handTool>
+  <handTool filename="$moddir$FS25_lizardPSx90Pack/ps390.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 4.341" translation="0.000 -0.002 0.206" />
+  </handTool>
+  <handTool filename="$moddir$FS25_lizardPSx90Pack/ps490.xml">
+    <collision name="body" size="2.042 2.283 2.901" translation="0.110 0.064 -0.226" />
+    <collision name="bar" size="0.092 0.646 3.571" translation="0.000 -0.002 0.156" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Husqvarna445_markII/Husqvarna445.xml">
+    <collision name="body" size="1.411 2.004 3.020" translation="0.064 0.085 -0.232" />
+    <collision name="bar" size="0.092 0.631 2.757" translation="0.001 -0.003 0.147" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Stihl_MS261_Pack/i3d/ms261Carbon.xml">
+    <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
+    <collision name="bar" size="0.093 0.709 2.838" translation="-0.001 0.012 0.187" rotation="-1.844 -0.000 -0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Stihl_MS261_Pack/i3d/ms261Carbon2.xml">
+    <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
+    <collision name="bar" size="0.093 0.709 2.838" translation="-0.001 0.012 0.187" rotation="-1.844 -0.000 -0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Stihl_MS261_Pack/i3d/ms261HR.xml">
+    <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
+    <collision name="bar" size="0.093 0.709 2.838" translation="-0.001 0.012 0.187" rotation="-1.844 -0.000 -0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Stihl_MS261_Pack/i3d/ms261Special.xml">
+    <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
+    <collision name="bar" size="0.093 0.709 2.838" translation="-0.001 0.012 0.187" rotation="-1.844 -0.000 -0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_husqvarna545Pack/545MKI.xml">
+    <collision name="body" size="1.485 1.900 3.208" translation="0.073 0.065 -0.208" />
+    <collision name="bar" size="0.092 0.631 2.472" translation="0.000 0.000 0.163" />
+  </handTool>
+  <handTool filename="$moddir$FS25_husqvarna545Pack/545MKII.xml">
+    <collision name="body" size="1.485 1.900 3.208" translation="0.073 0.065 -0.208" />
+    <collision name="bar" size="0.092 0.631 2.463" translation="0.000 0.000 0.165" />
+  </handTool>
+  <handTool filename="$moddir$FS25_husqvarna2800/husqvarna2800.xml">
+    <collision name="body" size="0.357 1.526 5.094" translation="0.100 0.008 -0.105" />
+  </handTool>
+  <handTool filename="$moddir$FS25_husqvarna2800/husqvarna2800old.xml">
+    <collision name="body" size="0.358 1.528 5.101" translation="0.100 0.008 -0.105" />
+  </handTool>
+  <handTool filename="$moddir$FS25_ms500i/ms500i.xml">
+    <collision name="body" size="1.457 2.094 3.441" translation="0.081 0.063 -0.219" />
+    <collision name="bar" size="0.121 0.831 3.228" translation="0.003 -0.008 0.215" />
+  </handTool>
+  <handTool filename="$moddir$FS25_ms500i/ms441.xml">
+    <collision name="body" size="1.457 2.094 2.928" translation="0.081 0.063 -0.203" />
+    <collision name="bar" size="0.121 0.695 3.416" translation="0.003 0.008 0.212" rotation="-1.312 -0.000 -0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_GDR_Fire_Brigade_Axe/axt.xml">
+    <collision name="body" size="0.179 1.898 0.916" translation="0.000 -0.011 0.111" />
+    <collision name="bar" size="0.184 0.307 3.815" translation="0.000 0.004 -0.202" />
+  </handTool>
+  <handTool filename="$moddir$FS25_026/026.xml">
+    <collision name="body" size="1.725 1.938 3.181" translation="0.084 0.070 -0.206" />
+    <collision name="bar" size="0.092 0.754 2.807" translation="-0.005 0.012 0.183" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Lizard_ForestrySaber/lizardLightSaberBlue.xml">
+    <collision name="body" size="0.200 0.200 10.379" translation="0.006 -0.015 0.414" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Lizard_ForestrySaber/lizardLightSaberDark.xml">
+    <collision name="body" size="0.200 0.200 10.379" translation="0.006 -0.015 0.414" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Lizard_ForestrySaber/lizardLightSaberGreen.xml">
+    <collision name="body" size="0.200 0.200 10.379" translation="0.006 -0.015 0.414" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Lizard_ForestrySaber/lizardLightSaberRed.xml">
+    <collision name="body" size="0.200 0.200 10.379" translation="0.006 -0.015 0.414" />
+  </handTool>
+  <handTool filename="$moddir$FS25_FlashlightsHandsFree/headflashlight.xml">
+    <collision name="body" size="0.429 1.490 1.022" translation="0.108 -0.021 0.000" rotation="0.000 0.000 19.618" />
+  </handTool>
+  <handTool filename="$moddir$FS25_FlashlightsHandsFree/neckflashlight.xml">
+    <collision name="body" size="0.307 1.029 1.078" translation="-0.062 0.004 0.000" />
+  </handTool>
+  <handTool filename="$moddir$FS25_lizard_l3000/l3000.xml">
+    <collision name="body" size="0.414 0.508 1.706" translation="-0.005 -0.002 0.024" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Lizard_Personal_Lighting/Flashlight.xml">
+    <collision name="body" size="0.323 0.323 1.560" translation="0.000 0.000 0.003" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Lizard_Personal_Lighting/Headlamp.xml">
+    <collision name="body" size="0.323 0.323 1.523" translation="0.000 0.000 0.203" />
+  </handTool>
+  <handTool filename="$moddir$FS25_Lizard_Personal_Lighting/Lantern.xml">
+    <collision name="body" size="1.025 4.883 1.262" translation="-0.033 -0.302 0.072" />
+  </handTool>
+</handToolDrop>
