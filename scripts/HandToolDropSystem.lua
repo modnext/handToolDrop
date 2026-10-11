@@ -275,3 +275,16 @@ TypeManager.validateTypes = Utils.prependedFunction(TypeManager.validateTypes, f
     g_handToolDropSystem:initialize()
   end
 end)
+
+---
+ForestryPhysicsRope.create = Utils.prependedFunction(ForestryPhysicsRope.create, function(rope)
+  local collisionGroup = HandToolDropUtil.COLLISION_GROUP
+  local collisionMask = Utils.clearFlags(rope.collisionMask, collisionGroup)
+
+  if bit32.btest(rope.collisionMask, rope.collisionGroup) then
+    collisionMask = bit32.bor(collisionMask, collisionGroup)
+  end
+
+  rope.collisionGroup = collisionGroup
+  rope.collisionMask = collisionMask
+end)
