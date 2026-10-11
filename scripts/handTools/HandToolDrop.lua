@@ -40,7 +40,6 @@ function HandToolDrop.registerFunctions(handToolType)
   SpecializationUtil.registerFunction(handToolType, "getCanDropHandTool", HandToolDrop.getCanDropHandTool)
   SpecializationUtil.registerFunction(handToolType, "dropHandTool", HandToolDrop.dropHandTool)
   SpecializationUtil.registerFunction(handToolType, "setIsDropped", HandToolDrop.setIsDropped)
-  SpecializationUtil.registerFunction(handToolType, "handToolDropPickupOverlapCallback", HandToolDrop.handToolDropPickupOverlapCallback)
 end
 
 ---Register all function overwritings
@@ -82,7 +81,6 @@ function HandToolDrop:onLoad(_)
   spec.hasRestoreAttempted = false
   spec.targetingPlayer = nil
   spec.pickupTarget = nil
-  spec.pickupQuery = {}
   spec.actionEventId = nil
 
   spec.dropText = g_i18n:getText("action_returnHandTool")
@@ -320,11 +318,11 @@ function HandToolDrop:getIsHandToolDropSupported()
   return rootNode ~= nil and graphicalNode ~= nil and entityExists(rootNode) and entityExists(graphicalNode)
 end
 
----Gets the closest pickup target for the player
+---Gets the closest pickup target for player
 -- @param Player player The player object
--- @return any The closest pickup target or nil
+-- @return HandTool The closest hand tool or nil
 -- @includeCode
-function HandToolDrop.getPickupTarget(self, player)
+function HandToolDrop.getPickupTarget(player)
   local node = player.targeter:getClosestTargetedNodeFromType(HandToolDrop)
   local target = node ~= nil and g_currentMission:getNodeObject(node) or nil
 
@@ -340,49 +338,30 @@ function HandToolDrop.getPickupTarget(self, player)
 
   directionX, directionZ = MathUtil.vector2Normalize(directionX, directionZ)
 
-  local query = self[HandToolDrop.SPEC_TABLE_NAME].pickupQuery
-  local playerX, playerY, playerZ = player:getPosition()
+  local playerX, _, playerZ = player:getPosition()
+  local closestTarget, closestDistanceSq = nil, math.huge
 
-  query.player = player
-  query.playerX, query.playerZ = playerX, playerZ
-  query.directionX, query.directionZ = directionX, directionZ
-  query.closestTarget = nil
-  query.closestDistanceSq = math.huge
+  for _, handTool in ipairs(g_currentMission.handToolSystem.handTools) do
+    local spec = handTool[HandToolDrop.SPEC_TABLE_NAME]
+    local droppedHandTool = spec ~= nil and spec.isDropped and spec.droppedHandTool or nil
 
-  overlapSphere(playerX, playerY + 0.5, playerZ, HandToolHands.PICKUP_DISTANCE, "handToolDropPickupOverlapCallback", self, CollisionFlag.DYNAMIC_OBJECT, true, true, false, true)
+    if droppedHandTool ~= nil and not droppedHandTool.isDeleted then
+      local objectX, _, objectZ = getWorldTranslation(droppedHandTool.nodeId)
+      local offsetX, offsetZ = objectX - playerX, objectZ - playerZ
+      local forwardDistance = offsetX * directionX + offsetZ * directionZ
+      local sideDistance = math.abs(offsetX * directionZ - offsetZ * directionX)
+      local isInFront = forwardDistance >= -0.15 and forwardDistance <= HandToolHands.PICKUP_DISTANCE
+      local isInView = isInFront and sideDistance <= math.max(0.6, forwardDistance * 0.5)
+      local distanceSq = MathUtil.vector2LengthSq(offsetX, offsetZ)
 
-  return query.closestTarget
-end
-
----Callback for pickup overlap detection
--- @param number node The node ID of the object
--- @return boolean True to continue overlap checks
--- @includeCode
-function HandToolDrop:handToolDropPickupOverlapCallback(node)
-  local droppedHandTool = g_currentMission:getNodeObject(node)
-
-  if droppedHandTool == nil or not droppedHandTool:isa(HandToolDropObject) or droppedHandTool.isDeleted then
-    return true
+      if isInView and distanceSq < closestDistanceSq and droppedHandTool:getCanPickupHandTool(player) then
+        closestTarget = droppedHandTool
+        closestDistanceSq = distanceSq
+      end
+    end
   end
 
-  local query = self[HandToolDrop.SPEC_TABLE_NAME].pickupQuery
-  local objectX, _, objectZ = getWorldTranslation(droppedHandTool.nodeId)
-  local offsetX, offsetZ = objectX - query.playerX, objectZ - query.playerZ
-  local forwardDistance = offsetX * query.directionX + offsetZ * query.directionZ
-  local sideDistance = math.abs(offsetX * query.directionZ - offsetZ * query.directionX)
-
-  if forwardDistance < -0.15 or forwardDistance > HandToolHands.PICKUP_DISTANCE or sideDistance > math.max(0.6, forwardDistance * 0.5) then
-    return true
-  end
-
-  local distanceSq = MathUtil.vector2LengthSq(offsetX, offsetZ)
-
-  if distanceSq < query.closestDistanceSq and droppedHandTool:getCanPickupHandTool(query.player) then
-    query.closestTarget = droppedHandTool
-    query.closestDistanceSq = distanceSq
-  end
-
-  return true
+  return closestTarget
 end
 
 ---Checks if player can drop hand tool
@@ -492,7 +471,7 @@ function HandToolDrop:onUpdate(_)
   local pickupTarget
 
   if not canDrop then
-    pickupTarget = HandToolDrop.getPickupTarget(self, player)
+    pickupTarget = HandToolDrop.getPickupTarget(player)
   end
 
   g_inputBinding:setActionEventActive(spec.actionEventId, canDrop or pickupTarget ~= nil)
@@ -548,10 +527,6 @@ function HandToolDrop:onHeldEnd()
   end
 
   spec.pickupTarget = nil
-  if spec.pickupQuery ~= nil then
-    spec.pickupQuery.player = nil
-    spec.pickupQuery.closestTarget = nil
-  end
 end
 
 ---Register action events
