@@ -46,9 +46,10 @@ function HandToolDropObject:configureCollisionShape(node)
     setIsCompound(node, false)
   end
 
+  local collisionMask = bit32.band(CollisionPreset.DYNAMIC_OBJECT.mask, bit32.bnot(HandToolDropUtil.COLLISION_GROUP))
+
   setHasCollision(node, true)
-  setCollisionFilterGroup(node, CollisionPreset.DYNAMIC_OBJECT.group)
-  setCollisionFilterMask(node, CollisionPreset.DYNAMIC_OBJECT.mask)
+  setCollisionFilter(node, CollisionPreset.DYNAMIC_OBJECT.group, collisionMask)
   setClipDistance(node, self.forcedClipDistance)
   setIsNonRenderable(node, true)
 end
@@ -84,10 +85,11 @@ function HandToolDropObject:createCollisionShapes(parentNode, sourceNode)
   end
 end
 
----Sets mass properties for the object
+---Sets mass properties for the specified node in the game
+-- @param integer nodeId ID of the node to set mass properties
 -- @includeCode
-function HandToolDropObject:setMassProperties()
-  setMass(self.nodeId, self:getTotalMass())
+function HandToolDropObject:setMassProperties(nodeId)
+  setMass(nodeId, self:getTotalMass())
 
   local volume, centerX, centerY, centerZ = 0, 0, 0, 0
 
@@ -104,7 +106,7 @@ function HandToolDropObject:setMassProperties()
     centerX, centerY, centerZ = centerX / volume - center[1], centerY / volume - center[2], centerZ / volume - center[3]
   end
 
-  setCenterOfMass(self.nodeId, centerX, centerY, centerZ)
+  setCenterOfMass(nodeId, centerX, centerY, centerZ)
 end
 
 ---Creates a node for the HandToolDropObject
@@ -142,9 +144,10 @@ function HandToolDropObject:createNode(position, rotation)
     return false
   end
 
+  local collisionMask = bit32.band(CollisionPreset.DYNAMIC_OBJECT.mask, bit32.bnot(HandToolDropUtil.COLLISION_GROUP))
+
   setHasCollision(nodeId, false)
-  setCollisionFilterGroup(nodeId, CollisionPreset.DYNAMIC_OBJECT.group)
-  setCollisionFilterMask(nodeId, CollisionPreset.DYNAMIC_OBJECT.mask)
+  setCollisionFilter(nodeId, CollisionPreset.DYNAMIC_OBJECT.group, collisionMask)
   setClipDistance(nodeId, self.forcedClipDistance)
 
   self:createCollisionShapes(nodeId, sourceNode)
@@ -159,11 +162,15 @@ function HandToolDropObject:createNode(position, rotation)
 
   link(getRootNode(), nodeId)
   self.rootNode = nodeId
-  self:setNodeId(nodeId)
 
   if self.isServer then
-    self:setMassProperties()
+    setRigidBodyType(nodeId, RigidBodyType.DYNAMIC)
+    self:setMassProperties(nodeId)
+
+    setSolverIterationCount(nodeId, 10)
   end
+
+  self:setNodeId(nodeId)
 
   return true
 end

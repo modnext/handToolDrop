@@ -7,6 +7,7 @@
 
 HandToolDropUtil = {
   MAX_COLLISION_BOXES = 4,
+  COLLISION_GROUP = 2 ^ 27,
 }
 
 ---
