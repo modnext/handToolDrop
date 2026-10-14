@@ -278,13 +278,17 @@ end)
 
 ---
 ForestryPhysicsRope.create = Utils.prependedFunction(ForestryPhysicsRope.create, function(rope)
-  local collisionGroup = HandToolDropUtil.COLLISION_GROUP
-  local collisionMask = Utils.clearFlags(rope.collisionMask, collisionGroup)
+  local hasDefaultCollisionFilter = rope.collisionGroup == ForestryPhysicsRope.COLLISION_GROUP and rope.collisionMask == ForestryPhysicsRope.COLLISION_MASK
 
-  if bit32.btest(rope.collisionMask, rope.collisionGroup) then
-    collisionMask = bit32.bor(collisionMask, collisionGroup)
+  if hasDefaultCollisionFilter then
+    local collisionGroup = HandToolDropUtil.COLLISION_GROUP
+    local collisionMask = Utils.clearFlags(rope.collisionMask, collisionGroup)
+
+    if bit32.btest(rope.collisionMask, rope.collisionGroup) then
+      collisionMask = bit32.bor(collisionMask, collisionGroup)
+    end
+
+    rope.collisionGroup = collisionGroup
+    rope.collisionMask = collisionMask
   end
-
-  rope.collisionGroup = collisionGroup
-  rope.collisionMask = collisionMask
 end)
