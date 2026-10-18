@@ -5,11 +5,6 @@
 -- Copyright (C) ModNext, All Rights Reserved.
 --
 
--- Collision boxes share one mesh; dimensions are configured in XML
--- Scaled compound collisions in GIANTS Engine have shown visible contact gaps
--- No per-shape contact/rest offset control was found in the available Lua API
--- I have not found a better solution yet and am investigating alternatives
-
 HandToolDropObject = {}
 
 local HandToolDropObject_mt = Class(HandToolDropObject, PhysicsObject)
@@ -35,25 +30,6 @@ function HandToolDropObject.new(isServer, isClient, customMt)
   return self
 end
 
----Configures the collision shape for a given node
--- @param any node The node to configure collision for
--- @includeCode
-function HandToolDropObject:configureCollisionShape(node)
-  setRigidBodyType(node, RigidBodyType.STATIC)
-  removeFromPhysics(node)
-
-  if getIsCompound(node) then
-    setIsCompound(node, false)
-  end
-
-  local collisionMask = bit32.band(CollisionPreset.DYNAMIC_OBJECT.mask, bit32.bnot(HandToolDropUtil.COLLISION_GROUP))
-
-  setHasCollision(node, true)
-  setCollisionFilter(node, CollisionPreset.DYNAMIC_OBJECT.group, collisionMask)
-  setClipDistance(node, self.forcedClipDistance)
-  setIsNonRenderable(node, true)
-end
-
 ---Releases the collider I3D file if loaded
 -- @includeCode
 function HandToolDropObject:releaseColliderI3DFile()
@@ -70,12 +46,13 @@ end
 function HandToolDropObject:createCollisionShapes(parentNode, sourceNode)
   local center = self.bounds.center
   local templateSize = HandToolDropUtil.getCollisionTemplateSize()
+  local collisionMask = Utils.clearFlags(CollisionPreset.DYNAMIC_OBJECT.mask, HandToolDropUtil.COLLISION_GROUP)
 
   for i, box in ipairs(self.bounds.boxes) do
     local shape = clone(sourceNode, false, false, false)
 
     setName(shape, "handToolDropCollision" .. i)
-    self:configureCollisionShape(shape)
+    setCollisionFilter(shape, CollisionPreset.DYNAMIC_OBJECT.group, collisionMask)
 
     setScale(shape, math.sqrt(box.size[1] / templateSize), math.sqrt(box.size[2] / templateSize), math.sqrt(box.size[3] / templateSize))
     setTranslation(shape, box.center[1] - center[1], box.center[2] - center[2], box.center[3] - center[3])
@@ -125,8 +102,6 @@ function HandToolDropObject:createNode(position, rotation)
     return false
   end
 
-  removeFromPhysics(scene)
-
   local nodeId, sourceNode
 
   if getNumOfChildren(scene) >= 2 then
@@ -135,7 +110,11 @@ function HandToolDropObject:createNode(position, rotation)
   end
 
   local isValidRoot = nodeId ~= nil and getHasClassId(nodeId, ClassIds.SHAPE) and getIsCompound(nodeId) and not getIsCompoundChild(nodeId) and getRigidBodyType(nodeId) ~= RigidBodyType.NONE
-  local isValidTemplate = isValidRoot and getHasClassId(sourceNode, ClassIds.SHAPE) and not getIsCompoundChild(sourceNode) and getRigidBodyType(sourceNode) == RigidBodyType.STATIC
+  local isValidTemplate = isValidRoot
+    and getHasClassId(sourceNode, ClassIds.SHAPE)
+    and not getIsCompound(sourceNode)
+    and not getIsCompoundChild(sourceNode)
+    and getRigidBodyType(sourceNode) == RigidBodyType.STATIC
 
   if not isValidTemplate then
     Logging.error("HandTool Drop: collider must contain a compound Shape root and a separate static box: %s", filename)
@@ -144,15 +123,12 @@ function HandToolDropObject:createNode(position, rotation)
     return false
   end
 
-  local collisionMask = bit32.band(CollisionPreset.DYNAMIC_OBJECT.mask, bit32.bnot(HandToolDropUtil.COLLISION_GROUP))
+  local collisionMask = Utils.clearFlags(CollisionPreset.DYNAMIC_OBJECT.mask, HandToolDropUtil.COLLISION_GROUP)
 
-  setHasCollision(nodeId, false)
   setCollisionFilter(nodeId, CollisionPreset.DYNAMIC_OBJECT.group, collisionMask)
-  setClipDistance(nodeId, self.forcedClipDistance)
 
   self:createCollisionShapes(nodeId, sourceNode)
-  removeFromPhysics(nodeId)
-  unlink(nodeId)
+  link(getRootNode(), nodeId)
   delete(scene)
 
   if position ~= nil then
@@ -160,11 +136,9 @@ function HandToolDropObject:createNode(position, rotation)
     setRotation(nodeId, unpack(rotation))
   end
 
-  link(getRootNode(), nodeId)
   self.rootNode = nodeId
 
   if self.isServer then
-    setRigidBodyType(nodeId, RigidBodyType.DYNAMIC)
     self:setMassProperties(nodeId)
 
     setSolverIterationCount(nodeId, 10)
