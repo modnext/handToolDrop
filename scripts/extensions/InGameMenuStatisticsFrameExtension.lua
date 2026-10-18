@@ -12,7 +12,7 @@ InGameMenuStatisticsFrameExtension = {}
 -- @return nil No return value
 -- @includeCode
 function InGameMenuStatisticsFrameExtension.overwriteGameFunctions(system)
-  InGameMenuStatisticsFrame.updateViewHandTools = Utils.overwrittenFunction(InGameMenuStatisticsFrame.updateViewHandTools, function(frame, superFunc)
+  system:overwriteGameFunction(InGameMenuStatisticsFrame, "updateViewHandTools", function(superFunc, frame)
     local holderText = g_i18n:getText("ui_map")
 
     for _, item in ipairs(frame.handTools) do

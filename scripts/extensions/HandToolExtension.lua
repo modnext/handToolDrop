@@ -12,7 +12,7 @@ HandToolExtension = {}
 -- @return nil No return value
 -- @includeCode
 function HandToolExtension.overwriteGameFunctions(system)
-  HandToolSetHolderEvent.run = Utils.overwrittenFunction(HandToolSetHolderEvent.run, function(event, superFunc, connection)
+  system:overwriteGameFunction(HandToolSetHolderEvent, "run", function(superFunc, event, connection)
     if not connection:getIsServer() and system:getIsDroppedHandTool(event.handTool) then
       local player = event.holder
       local droppedHandTool = event.handTool[HandToolDrop.SPEC_TABLE_NAME].droppedHandTool
@@ -26,7 +26,7 @@ function HandToolExtension.overwriteGameFunctions(system)
     end
   end)
 
-  PlayerHoldHandToolEvent.run = Utils.overwrittenFunction(PlayerHoldHandToolEvent.run, function(event, superFunc, connection)
+  system:overwriteGameFunction(PlayerHoldHandToolEvent, "run", function(superFunc, event, connection)
     local isDroppedRequest = not connection:getIsServer() and event.handToolId ~= nil and system:getIsDroppedHandTool(NetworkUtil.getObject(event.handToolId))
 
     if not isDroppedRequest then

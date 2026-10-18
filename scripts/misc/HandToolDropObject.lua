@@ -137,13 +137,14 @@ function HandToolDropObject:createNode(position, rotation)
   end
 
   self.rootNode = nodeId
-  self:setNodeId(nodeId)
 
   if self.isServer then
     self:setMassProperties(nodeId)
 
     setSolverIterationCount(nodeId, 10)
   end
+
+  self:setNodeId(nodeId)
 
   return true
 end

@@ -13,6 +13,7 @@ source(g_currentModDirectory .. "scripts/misc/HandToolDropObject.lua")
 source(g_currentModDirectory .. "scripts/hud/HandToolDropHud.lua")
 source(g_currentModDirectory .. "scripts/handTools/events/HandToolDropRequestEvent.lua")
 source(g_currentModDirectory .. "scripts/extensions/HandToolExtension.lua")
+source(g_currentModDirectory .. "scripts/extensions/ForestryPhysicsRopeExtension.lua")
 source(g_currentModDirectory .. "scripts/extensions/InGameMenuStatisticsFrameExtension.lua")
 source(g_currentModDirectory .. "scripts/extensions/PlayerHUDUpdaterExtension.lua")
 
@@ -31,7 +32,7 @@ function HandToolDropSystem.new(modName, modDirectory)
   self.defaultColliderFilename = modDirectory .. "objects/handToolCollider.i3d"
 
   self.handTools = {}
-  self.isInitialized = false
+  self.overwrittenGameFunctions = {}
   self.hud = HandToolDropHud.new()
 
   return self
@@ -40,15 +41,10 @@ end
 ---Initializes the HandToolDropSystem
 -- @includeCode
 function HandToolDropSystem:initialize()
-  if self.isInitialized then
-    return
-  end
-
   HandToolExtension.overwriteGameFunctions(self)
+  ForestryPhysicsRopeExtension.overwriteGameFunctions(self)
   InGameMenuStatisticsFrameExtension.overwriteGameFunctions(self)
-  PlayerHUDUpdaterExtension.overwriteGameFunctions()
-
-  self.isInitialized = true
+  PlayerHUDUpdaterExtension.overwriteGameFunctions(self)
 end
 
 ---Loads the map configuration if mod is loaded
@@ -67,6 +63,15 @@ function HandToolDropSystem:deleteMap()
   if self.hud ~= nil then
     self.hud:delete()
     self.hud = nil
+  end
+
+  local overwritten = self.overwrittenGameFunctions
+
+  for i = #overwritten, 1, -1 do
+    local reference = overwritten[i]
+
+    reference.object[reference.funcName] = reference.oldFunc
+    overwritten[i] = nil
   end
 end
 
@@ -263,6 +268,32 @@ function HandToolDropSystem:getIsDroppedHandTool(handTool)
   local spec = handTool ~= nil and handTool[HandToolDrop.SPEC_TABLE_NAME] or nil
 
   return spec ~= nil and spec.isDropped
+end
+
+---Overwrites a game function and stores the original for cleanup
+-- @param table object Object containing the function
+-- @param string funcName Name of the function to overwrite
+-- @param function newFunc Replacement receiving the original function first
+-- @includeCode
+function HandToolDropSystem:overwriteGameFunction(object, funcName, newFunc)
+  if object == nil then
+    Logging.error("Failed to overwrite '%s'", funcName)
+    printCallstack()
+  else
+    local oldFunc = object[funcName]
+
+    if oldFunc ~= nil then
+      object[funcName] = function(...)
+        return newFunc(oldFunc, ...)
+      end
+
+      table.insert(self.overwrittenGameFunctions, {
+        object = object,
+        funcName = funcName,
+        oldFunc = oldFunc,
+      })
+    end
+  end
 end
 
 ---Global instance of HandToolDropSystem
