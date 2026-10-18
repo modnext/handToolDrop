@@ -70,7 +70,10 @@ function HandToolDropSystem:deleteMap()
   for i = #overwritten, 1, -1 do
     local reference = overwritten[i]
 
-    reference.object[reference.funcName] = reference.oldFunc
+    if reference.object[reference.funcName] == reference.wrappedFunc then
+      reference.object[reference.funcName] = reference.oldFunc
+    end
+
     overwritten[i] = nil
   end
 end
@@ -283,14 +286,17 @@ function HandToolDropSystem:overwriteGameFunction(object, funcName, newFunc)
     local oldFunc = object[funcName]
 
     if oldFunc ~= nil then
-      object[funcName] = function(...)
+      local wrappedFunc = function(...)
         return newFunc(oldFunc, ...)
       end
+
+      object[funcName] = wrappedFunc
 
       table.insert(self.overwrittenGameFunctions, {
         object = object,
         funcName = funcName,
         oldFunc = oldFunc,
+        wrappedFunc = wrappedFunc,
       })
     end
   end
