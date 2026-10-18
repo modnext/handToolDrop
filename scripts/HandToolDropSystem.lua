@@ -13,6 +13,7 @@ source(g_currentModDirectory .. "scripts/misc/HandToolDropObject.lua")
 source(g_currentModDirectory .. "scripts/hud/HandToolDropHud.lua")
 source(g_currentModDirectory .. "scripts/handTools/events/HandToolDropRequestEvent.lua")
 source(g_currentModDirectory .. "scripts/extensions/HandToolExtension.lua")
+source(g_currentModDirectory .. "scripts/extensions/ForestryPhysicsRopeExtension.lua")
 source(g_currentModDirectory .. "scripts/extensions/InGameMenuStatisticsFrameExtension.lua")
 source(g_currentModDirectory .. "scripts/extensions/PlayerHUDUpdaterExtension.lua")
 
@@ -31,7 +32,7 @@ function HandToolDropSystem.new(modName, modDirectory)
   self.defaultColliderFilename = modDirectory .. "objects/handToolCollider.i3d"
 
   self.handTools = {}
-  self.isInitialized = false
+  self.overwrittenGameFunctions = {}
   self.hud = HandToolDropHud.new()
 
   return self
@@ -40,15 +41,10 @@ end
 ---Initializes the HandToolDropSystem
 -- @includeCode
 function HandToolDropSystem:initialize()
-  if self.isInitialized then
-    return
-  end
-
   HandToolExtension.overwriteGameFunctions(self)
+  ForestryPhysicsRopeExtension.overwriteGameFunctions(self)
   InGameMenuStatisticsFrameExtension.overwriteGameFunctions(self)
-  PlayerHUDUpdaterExtension.overwriteGameFunctions()
-
-  self.isInitialized = true
+  PlayerHUDUpdaterExtension.overwriteGameFunctions(self)
 end
 
 ---Loads the map configuration if mod is loaded
@@ -67,6 +63,15 @@ function HandToolDropSystem:deleteMap()
   if self.hud ~= nil then
     self.hud:delete()
     self.hud = nil
+  end
+
+  local overwritten = self.overwrittenGameFunctions
+
+  for i = #overwritten, 1, -1 do
+    local reference = overwritten[i]
+
+    reference.object[reference.funcName] = reference.oldFunc
+    overwritten[i] = nil
   end
 end
 
@@ -265,6 +270,32 @@ function HandToolDropSystem:getIsDroppedHandTool(handTool)
   return spec ~= nil and spec.isDropped
 end
 
+---Overwrites a game function and stores the original for cleanup
+-- @param table object Object containing the function
+-- @param string funcName Name of the function to overwrite
+-- @param function newFunc Replacement receiving the original function first
+-- @includeCode
+function HandToolDropSystem:overwriteGameFunction(object, funcName, newFunc)
+  if object == nil then
+    Logging.error("Failed to overwrite '%s'", funcName)
+    printCallstack()
+  else
+    local oldFunc = object[funcName]
+
+    if oldFunc ~= nil then
+      object[funcName] = function(...)
+        return newFunc(oldFunc, ...)
+      end
+
+      table.insert(self.overwrittenGameFunctions, {
+        object = object,
+        funcName = funcName,
+        oldFunc = oldFunc,
+      })
+    end
+  end
+end
+
 ---Global instance of HandToolDropSystem
 g_handToolDropSystem = HandToolDropSystem.new(g_currentModName, g_currentModDirectory)
 addModEventListener(g_handToolDropSystem)
@@ -273,22 +304,5 @@ addModEventListener(g_handToolDropSystem)
 TypeManager.validateTypes = Utils.prependedFunction(TypeManager.validateTypes, function(typeManager)
   if typeManager.typeName == "handTool" and g_modIsLoaded[g_handToolDropSystem.modName] then
     g_handToolDropSystem:initialize()
-  end
-end)
-
----
-ForestryPhysicsRope.create = Utils.prependedFunction(ForestryPhysicsRope.create, function(rope)
-  local hasDefaultCollisionFilter = rope.collisionGroup == ForestryPhysicsRope.COLLISION_GROUP and rope.collisionMask == ForestryPhysicsRope.COLLISION_MASK
-
-  if hasDefaultCollisionFilter then
-    local collisionGroup = HandToolDropUtil.COLLISION_GROUP
-    local collisionMask = Utils.clearFlags(rope.collisionMask, collisionGroup)
-
-    if bit32.btest(rope.collisionMask, rope.collisionGroup) then
-      collisionMask = bit32.bor(collisionMask, collisionGroup)
-    end
-
-    rope.collisionGroup = collisionGroup
-    rope.collisionMask = collisionMask
   end
 end)
