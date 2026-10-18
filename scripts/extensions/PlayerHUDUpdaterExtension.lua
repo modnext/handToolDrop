@@ -9,9 +9,12 @@ PlayerHUDUpdaterExtension = {}
 
 ---Overwrites game functions for HUD updates
 -- PlayerHUDUpdater drops deleted objects through a delete listener and HandToolDropObject clears handTool on delete
+-- @param HandToolDropSystem system Game system reference
 -- @includeCode
-function PlayerHUDUpdaterExtension.overwriteGameFunctions()
-  PlayerHUDUpdater.update = Utils.appendedFunction(PlayerHUDUpdater.update, function(updater)
+function PlayerHUDUpdaterExtension.overwriteGameFunctions(system)
+  system:overwriteGameFunction(PlayerHUDUpdater, "update", function(superFunc, updater, ...)
+    superFunc(updater, ...)
+
     local object = updater.object
     local handTool = object ~= nil and object:isa(HandToolDropObject) and object.handTool or nil
 
