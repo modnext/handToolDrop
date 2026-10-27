@@ -5,7 +5,9 @@
 -- Copyright (C) ModNext, All Rights Reserved.
 --
 
-HandToolDropHud = {}
+HandToolDropHud = {
+  MARKER_MAX_DISTANCE = 5,
+}
 
 local HandToolDropHud_mt = Class(HandToolDropHud, HUDDisplay)
 
@@ -46,8 +48,10 @@ end
 ---Stores scaled values for the marker overlay
 -- @includeCode
 function HandToolDropHud:storeScaledValues()
+  self.markerWidth, self.markerHeight = self:scalePixelValuesToScreenVector(16, 16)
+
   if self.markerOverlay ~= nil then
-    self.markerOverlay:setDimension(self:scalePixelValuesToScreenVector(16, 16))
+    self.markerOverlay:setDimension(self.markerWidth, self.markerHeight)
   end
 end
 
@@ -100,7 +104,8 @@ function HandToolDropHud:drawMarker(droppedHandTool, cameraNode, playerX, player
 
   if isAttached and getVisibility(tool.rootNode) then
     local x, y, z = getWorldTranslation(droppedHandTool.nodeId)
-    local isInRange = MathUtil.vector3LengthSq(x - playerX, y - playerY, z - playerZ) <= 5 ^ 2
+    local distanceSq = MathUtil.vector3LengthSq(x - playerX, y - playerY, z - playerZ)
+    local isInRange = distanceSq <= HandToolDropHud.MARKER_MAX_DISTANCE ^ 2
 
     if isInRange then
       local _, _, cameraZ = worldToLocal(cameraNode, x, y, z)
@@ -111,7 +116,10 @@ function HandToolDropHud:drawMarker(droppedHandTool, cameraNode, playerX, player
 
         if isOnScreen then
           local color = isPickupTarget and HUD.COLOR.ACTIVE or HUD.COLOR.INACTIVE
+          local distanceAlpha = MathUtil.inverseLerp(1, HandToolDropHud.MARKER_MAX_DISTANCE, math.sqrt(distanceSq))
+          local markerScale = MathUtil.lerp(1, 0.75, distanceAlpha)
 
+          self.markerOverlay:setDimension(self.markerWidth * markerScale, self.markerHeight * markerScale)
           self.markerOverlay:setColor(unpack(color))
           self.markerOverlay:setPosition(screenX, screenY)
           self.markerOverlay:render()
