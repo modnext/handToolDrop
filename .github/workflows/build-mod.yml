@@ -19,7 +19,7 @@ jobs:
 
       - name: Build mod archive (ZIP)
         run: |
-          zip -r FS25_handToolDrop.zip scripts/ objects/ modDesc.xml icon_handToolDrop.dds
+          zip -r FS25_handToolDrop.zip scripts/ objects/ modDesc.xml icon_handToolDrop.dds handToolDrop.xml
 
       - name: Store mod archive for publishing
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
