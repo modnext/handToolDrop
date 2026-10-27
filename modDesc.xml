@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="no" ?>
-<modDesc descVersion="113">
+<modDesc descVersion="115">
   <author>aaw3k</author>
-  <version>1.0.0.0</version>
+  <version>1.1.0.0</version>
 
   <title>
     <en>Hand Tool Drop</en>
@@ -24,6 +24,13 @@ Features:
 Hotkeys:
 - Press Q to drop the held tool or equip a nearby dropped tool you are looking at.
 
+Changelog Version 1.1.0.0:
+- Added support for hand tools from the Beans & Alpacas Expansion DLC
+- Improved collision handling for dropped tools
+- Simplified collision object creation
+- Fixed return value handling when creating forestry ropes
+- Tool markers now shrink slightly as the player moves away
+
 For more information or to report a bug, please visit GitHub (modnext/handToolDrop).
 ]]></en>
     <de><![CDATA[
@@ -37,6 +44,13 @@ Funktionen:
 
 Tastenkombinationen:
 - Drücke Q, um das gehaltene Werkzeug abzulegen oder ein abgelegtes Werkzeug in deiner Nähe auszurüsten, auf das du blickst.
+
+Änderungen in Version 1.1.0.0:
+- Unterstützung für Handwerkzeuge aus dem DLC Beans & Alpacas Expansion hinzugefügt
+- Verbesserte Kollisionsbehandlung für abgelegte Werkzeuge
+- Vereinfachte Erstellung von Kollisionskörpern
+- Verarbeitung des Rückgabewerts beim Erstellen von Forstseilen korrigiert
+- Werkzeugmarkierungen werden jetzt etwas kleiner, wenn sich der Spieler entfernt
 
 Für weitere Informationen oder um einen Fehler zu melden, besuche GitHub (modnext/handToolDrop).
 ]]></de>
@@ -52,6 +66,13 @@ Fonctionnalités :
 Raccourcis clavier :
 - Appuyez sur Q pour déposer l'outil que vous tenez ou vous équiper d'un outil posé à proximité que vous regardez.
 
+Liste des modifications de la version 1.0.1.0 :
+- Ajout de la prise en charge des outils à main du DLC Beans & Alpacas Expansion
+- Amélioration de la gestion des collisions des outils déposés
+- Simplification de la création des objets de collision
+- Correction de la gestion de la valeur de retour lors de la création des câbles forestiers
+- Les marqueurs des outils deviennent légèrement plus petits lorsque le joueur s'éloigne
+
 Pour plus d'informations ou pour signaler un bug, rendez-vous sur GitHub (modnext/handToolDrop).
 ]]></fr>
     <pl><![CDATA[
@@ -66,6 +87,13 @@ Funkcje:
 Skróty klawiszowe:
 - Naciśnij Q, aby upuścić trzymane narzędzie lub wziąć do ekwipunku pobliskie narzędzie, na które patrzysz.
 
+Lista zmian w wersji 1.1.0.0:
+- Dodano obsługę narzędzi ręcznych z DLC Beans & Alpacas Expansion
+- Ulepszono obsługę kolizji odłożonych narzędzi
+- Uproszczono tworzenie brył kolizyjnych
+- Poprawiono przekazywanie informacji o powodzeniu tworzenia lin leśnych
+- Znaczniki narzędzi delikatnie zmniejszają się wraz z oddalaniem gracza
+
 Aby uzyskać więcej informacji lub zgłosić błąd, odwiedź GitHub (modnext/handToolDrop).
 ]]></pl>
     <ru><![CDATA[
@@ -79,6 +107,13 @@ Aby uzyskać więcej informacji lub zgłosić błąd, odwiedź GitHub (modnext/h
 
 Клавиши:
 - Нажмите Q, чтобы положить удерживаемый инструмент на землю или взять в руки лежащий рядом инструмент, на который вы смотрите.
+
+Список изменений в версии 1.1.0.0:
+- Добавлена поддержка ручных инструментов из DLC Beans & Alpacas Expansion
+- Улучшена обработка столкновений отложенных инструментов
+- Упрощено создание коллизионных тел
+- Исправлена обработка возвращаемого значения при создании лесозаготовительных тросов
+- Маркеры инструментов теперь немного уменьшаются по мере удаления игрока
 
 Для получения дополнительной информации или сообщения об ошибке посетите GitHub (modnext/handToolDrop).
 ]]></ru>
