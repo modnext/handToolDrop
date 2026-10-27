@@ -19,7 +19,6 @@
     <collision name="body" size="1.683 1.961 3.263" translation="0.085 0.069 -0.210" />
     <collision name="bar" size="0.092 0.754 2.806" translation="-0.001 0.012 0.194" rotation="-2.964 -0.000 -0.000" />
   </handTool>
-
   <handTool filename="data/handTools/stihl/sprayCan/sprayCanBlue.xml">
     <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
   </handTool>
@@ -42,6 +41,7 @@
     <collision name="body" size="0.527 1.493 0.522" translation="0.000 0.056 0.000" />
   </handTool>
 
+  <!-- Highlands Fishing Pack & Pumps And Hoses Pack -->
   <handTool filename="$pdlcdir$highlandsFishingPack/handTools/fishingRod/fishingRod.xml" mass="2" resetPose="true" resetPoseMode="animation">
     <collision name="body" size="10.409 0.200 0.200" translation="0.011 0.000 0.000" />
     <collision name="bobber" size="1.387 0.804 0.804" translation="0.017 -0.132 0.000" />
@@ -52,6 +52,7 @@
     <collision name="bodyBottom" size="0.050 0.200 3.781" translation="-0.006 -0.001 0.190" />
   </handTool>
 
+  <!-- Mods -->
   <handTool filename="$moddir$FS25_stihlMS661C/661C.xml">
     <collision name="body" size="1.929 2.274 3.435" translation="0.075 0.085 -0.202" />
     <collision name="bar" size="0.092 0.707 4.741" translation="-0.031 0.019 0.326" rotation="-2.247 -0.000 -0.000" />
@@ -193,5 +194,16 @@
   </handTool>
   <handTool filename="$moddir$FS25_Lizard_Personal_Lighting/Lantern.xml">
     <collision name="body" size="1.025 4.883 1.262" translation="-0.033 -0.302 0.072" />
+  </handTool>
+
+  <!-- Beans and Alpacas Pack -->
+  <handTool filename="$pdlcdir$beansAndAlpacasPack/handTools/brandless/leash/leash.xml" mass="2">
+    <collision name="body" size="1.002 0.197 1.405" translation="0.046 0.009 0.053" />
+  </handTool>
+  <handTool filename="$pdlcdir$beansAndAlpacasPack/handTools/brandless/machete/machete.xml" mass="3">
+    <collision name="body" size="0.342 0.076 4.204" translation="0.003 0.000 0.232" />
+  </handTool>
+  <handTool filename="$pdlcdir$beansAndAlpacasPack/handTools/brandless/shearingMachine/shearingMachine.xml" mass="2">
+    <collision name="body" size="0.530 0.446 1.855" translation="-0.004 -0.004 0.108" />
   </handTool>
 </handToolDrop>

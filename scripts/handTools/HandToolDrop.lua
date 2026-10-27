@@ -306,7 +306,13 @@ end
 -- @includeCode
 function HandToolDrop:getIsHandToolDropSupported()
   local isAvailable = not self.isDeleted and self:getIsSynchronized() and self[HandToolDrop.SPEC_TABLE_NAME].configuration ~= nil
-  local canBeDropped = self:getNeedsSaving() and self:getCanBeDropped() and not self.mustBeHeld
+  local canBePutDown = not self.mustBeHeld
+
+  if self.isLeash then
+    canBePutDown = self:getLeashedVehicle() == nil and not self:getIsLeadPending()
+  end
+
+  local canBeDropped = self:getNeedsSaving() and self:getCanBeDropped() and canBePutDown
 
   if not isAvailable or not canBeDropped then
     return false
